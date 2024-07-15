@@ -326,7 +326,7 @@ local plugins = {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
         pylsp = {},
         -- rust_analyzer = {},
@@ -367,6 +367,9 @@ local plugins = {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'pylsp',
+        'clangd',
+        'isort',
         'black',
         'ruff',
       })
@@ -401,7 +404,7 @@ local plugins = {
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
@@ -414,7 +417,7 @@ local plugins = {
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        python = { 'black', 'ruff' },
+        python = { 'black', 'isort' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -614,7 +617,7 @@ local plugins = {
   -- Uncomment any of the lines below to enable them (you will need to restart nvim).
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
