@@ -1,18 +1,14 @@
 local plugins = {
-  'jose-elias-alvarez/null-ls.nvim',
+  --[[ { 'mfussenegger/nvim-lint', opts = {} }, ]]
   {
     'nvim-tree/nvim-tree.lua',
+    event = 'VimEnter',
     config = function()
-      require('nvim-tree').setup()
-      vim.api.nvim_create_autocmd('VimEnter', {
-        desc = 'Open the file tree if nothing is entered as a command',
-        group = vim.api.nvim_create_augroup('nvim-tree-open-no-args', { clear = true }),
-        callback = function()
-          if #vim.v.argv == 2 then
-            vim.cmd 'NvimTreeOpen'
-          end
-        end,
-      })
+      require('nvim-tree').setup {}
+      local api = require 'nvim-tree.api'
+
+      vim.keymap.set('n', '<C-s>', api.node.open.horizontal, { desc = 'Open: Horizontal Split' })
+      vim.keymap.set('n', '<leader>o', api.tree.open, { desc = '[O]pen File Tree' })
     end,
   },
 
