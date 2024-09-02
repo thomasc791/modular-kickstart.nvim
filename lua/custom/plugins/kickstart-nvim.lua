@@ -382,6 +382,7 @@ local plugins = {
         'isort',
         'black',
         'ruff',
+        'clang-format',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -428,6 +429,7 @@ local plugins = {
       formatters_by_ft = {
         lua = { 'stylua' },
         python = { 'isort', 'black' },
+        cpp = { 'clang-format' },
         -- Conform can also run multiple formatters sequentially
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
