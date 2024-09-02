@@ -119,7 +119,7 @@ vim.g.loaded_netrwPlugin = 1
 -- Enable break indent
 vim.opt.breakindent = true
 vim.opt['tabstop'] = 2
-vim.opt['shiftwidth'] = 3
+vim.opt['shiftwidth'] = 2
 
 -- Save undo history
 vim.opt.undofile = true
