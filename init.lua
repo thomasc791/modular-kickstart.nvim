@@ -102,7 +102,6 @@ vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
-
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
@@ -118,8 +117,11 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 -- Enable break indent
 vim.opt.breakindent = true
+
+vim.opt['expandtab'] = true
 vim.opt['tabstop'] = 2
 vim.opt['shiftwidth'] = 2
+vim.treesitter.language.register('glsl', 'vert')
 
 -- Save undo history
 vim.opt.undofile = true
@@ -216,6 +218,8 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+require('texpresso').texpresso_path = '/opt/texpresso/texpresso'
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -230,7 +234,7 @@ vim.opt.rtp:prepend(lazypath)
 require 'custom.autocmds'
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.

@@ -11,23 +11,43 @@ local plugins = {
       vim.keymap.set('n', '<leader>o', api.tree.toggle, { desc = '[O]pen or Close File Tree' })
     end,
   },
-
-  'catppuccin/nvim',
-
-  {
-    'rmehri01/onenord.nvim',
-    name = 'onenord',
-    priority = 1000,
-    init = function()
-      vim.cmd.colorscheme 'onenord'
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-
   {
     'mbbill/undotree',
     config = function()
       vim.keymap.set('n', '<leader><F5>', vim.cmd.UndotreeToggle, { desc = 'Toggle Undo Tree' })
+    end,
+  },
+  {
+    'nvim-neorg/neorg',
+    lazy = false,
+    version = '*',
+    opts = {
+      load = {
+        ['core.defaults'] = {},
+        ['core.concealer'] = {},
+        ['core.keybinds'] = {
+          config = {
+            default_keybinds = false,
+          },
+        },
+      },
+    },
+  },
+  'catppuccin/nvim',
+  {
+    'tanvirtin/monokai.nvim',
+    name = 'monokai',
+  },
+  {
+    'folke/tokyonight.nvim',
+  },
+  {
+    'ellisonleao/gruvbox.nvim',
+    name = 'gruvbox',
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme 'gruvbox'
+      vim.cmd.hi 'Comment gui=none'
     end,
   },
 }
