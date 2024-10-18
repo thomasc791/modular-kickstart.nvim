@@ -339,6 +339,7 @@ local plugins = {
           settings = {
             pylsp = {
               plugins = {
+                pylint = { enabled = false },
                 pyflakes = { enabled = false },
                 pycodestyle = { enabled = false },
                 mccabe = { enabled = false },
@@ -358,6 +359,70 @@ local plugins = {
             'vs',
             'fs',
           },
+        },
+        julials = {
+          julia_env_path = '~/.partition/programs/julia/environments/v1.11/',
+
+          on_new_config = function(config, workspace_dir)
+            local _ = require 'mason-core.functional'
+            local fs = require 'mason-core.fs'
+            local path = require 'mason-core.path'
+
+            -- The default configuration used by `mason-lspconfig`:
+            --
+            --   https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/server_configurations/julials/init.lua
+            --
+            -- has the following logic to obtain the current environment path:
+            --
+            --   1. Check if `env_path` is defined.
+            --   2. Check if we are in a Julia project.
+            --   3. Call julia to return the current env path.
+            --
+            -- However, the third step causes a significant slow down when Julia is called in a
+            -- single file mode because it must wait loading Julia. Here, we will invert the
+            -- logic:
+            --
+            --   1. Check if we are in a Julia project.
+            --   2. Check if `env_path` is defined.
+            --   3. Call julia to return the current env path.
+            --
+            -- Hence, if we define `env_path`, we can still use the project folder as root and
+            -- avoid the slowdown in the single file case.
+            local env_path = nil
+            local file_exists = _.compose(fs.sync.file_exists, path.concat, _.concat { workspace_dir })
+            if
+              (file_exists { 'Project.toml' } and file_exists { 'Manifest.toml' })
+              or (file_exists { 'JuliaProject.toml' } and file_exists { 'JuliaManifest.toml' })
+            then
+              env_path = workspace_dir
+            end
+
+            if not env_path then
+              env_path = config.julia_env_path and vim.fn.expand(config.julia_env_path)
+            end
+
+            if not env_path then
+              local ok, env = pcall(vim.fn.system, {
+                'julia',
+                '--startup-file=no',
+                '--history-file=no',
+                '-e',
+                'using Pkg; print(dirname(Pkg.Types.Context().env.project_file))',
+              })
+              if ok then
+                env_path = env
+              end
+            end
+
+            config.cmd = {
+              vim.fn.exepath 'julia-lsp',
+              env_path,
+            }
+            config.cmd_env = vim.tbl_extend('keep', config.cmd_env or {}, {
+              SYMBOL_SERVER = config.symbol_server,
+              SYMBOL_CACHE_DOWNLOAD = (config.symbol_cache_download == false) and '0' or '1',
+            })
+          end,
         },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -398,6 +463,7 @@ local plugins = {
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'pylsp',
+        'julials',
         'clangd',
         'isort',
         'black',
