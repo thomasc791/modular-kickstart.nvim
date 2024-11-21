@@ -218,7 +218,20 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-require('texpresso').texpresso_path = '/opt/texpresso/texpresso'
+local function exists(file)
+  local ok, err, code = os.rename(file, file)
+  if not ok then
+    if code == 13 then
+      -- Permission denied, but it exists
+      return true
+    end
+  end
+  return ok, err
+end
+
+if exists '~/.config/nvim/start/texpresso.vim/' then
+  require('texpresso').texpresso_path = '/opt/texpresso/texpresso'
+end
 
 -- [[ Configure and install plugins ]]
 --
