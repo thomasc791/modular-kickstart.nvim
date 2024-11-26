@@ -233,6 +233,10 @@ if exists '~/.config/nvim/start/texpresso.vim/' then
   require('texpresso').texpresso_path = '/opt/texpresso/texpresso'
 end
 
+-- NeoVim custom keymaps
+vim.keymap.set('n', '<leader>cd', function()
+  vim.cmd.cd '%:h'
+end, { desc = '[C]hange [D]irectory to current file' })
 -- NOTE: Here is where you install your plugins.
 require 'autocmds.autocmds'
 require('lazy').setup({

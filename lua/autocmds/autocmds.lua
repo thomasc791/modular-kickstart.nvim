@@ -33,3 +33,11 @@ vim.api.nvim_create_autocmd('FileType', {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd('DirChanged', {
+  callback = function()
+    local api = require 'nvim-tree.api'
+    local dir = vim.fn.expand '%:h'
+    api.tree.change_root(dir)
+  end,
+})
