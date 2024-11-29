@@ -229,10 +229,7 @@ local function exists(file)
   return ok, err
 end
 
-if exists '~/.config/nvim/start/texpresso.vim/' then
-  require('texpresso').texpresso_path = '/opt/texpresso/texpresso'
-end
-
+vim.o.termguicolors = true
 -- NeoVim custom keymaps
 vim.keymap.set('n', '<leader>cd', function()
   vim.cmd.cd '%:h'
