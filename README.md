@@ -1,3 +1,5 @@
+<em>This is a fork from the amazing [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)</em>
+
 # kickstart.nvim
 
 ## Introduction
