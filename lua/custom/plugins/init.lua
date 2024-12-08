@@ -6,4 +6,5 @@ return {
   require(dir .. 'nvim-ufo'),
   require(dir .. 'undotree'),
   require(dir .. 'vimtex'),
+  require(dir .. 'tiny-inline-diagnostic'),
 }
