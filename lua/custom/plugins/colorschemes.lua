@@ -3,13 +3,25 @@ return {
     'ellisonleao/gruvbox.nvim',
     name = 'gruvbox',
     priority = 1000,
-    init = function()
-      vim.cmd.colorscheme 'gruvbox'
-      vim.cmd.hi 'Comment gui=none'
+    config = function()
+      Time = tonumber(os.date '%H')
+      if Time >= 18 or Time <= 7 then
+        vim.cmd.colorscheme 'gruvbox'
+        vim.cmd.hi 'Comment gui=none'
+      end
     end,
   },
 
-  { 'catppuccin/nvim', name = 'catppuccin' },
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    opts = { telescope = { enable = true } },
+    config = function()
+      if Time > 7 or Time < 18 then
+        vim.cmd.colorscheme 'catppuccin-macchiato'
+      end
+    end,
+  },
 
   {
     'tanvirtin/monokai.nvim',
