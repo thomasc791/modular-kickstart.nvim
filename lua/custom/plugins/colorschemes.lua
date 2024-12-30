@@ -17,7 +17,7 @@ return {
     name = 'catppuccin',
     opts = { telescope = { enable = true } },
     config = function()
-      if Time > 7 or Time < 18 then
+      if Time > 7 and Time < 18 then
         vim.cmd.colorscheme 'catppuccin-macchiato'
       end
     end,
