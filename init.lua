@@ -239,8 +239,8 @@ end, { desc = '[C]hange [D]irectory to current file' })
 -- NOTE: Here is where you install your plugins.
 require 'autocmds.autocmds'
 require('lazy').setup({
-  require 'custom',
-  require 'kickstart.plugins.lint',
+  require 'custom.plugins',
+  require 'custom.kickstart',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

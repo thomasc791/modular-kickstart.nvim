@@ -5,6 +5,7 @@ return {
   require(dir .. 'lazydev'),
   require(dir .. 'telescope'),
   require(dir .. 'nvim-lspconfig'),
+  require(dir .. 'nvim-lint'),
   require(dir .. 'conform'),
   require(dir .. 'nvim-cmp'),
   require(dir .. 'mini'),
