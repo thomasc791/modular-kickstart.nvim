@@ -115,14 +115,15 @@ vim.opt.showmode = false
 --   vim.opt.clipboard = 'unnamedplus'
 -- end)
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- Disable netrw
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 -- Enable break indent
 vim.opt.breakindent = true
 
 vim.opt['expandtab'] = true
-vim.opt['tabstop'] = 2
-vim.opt['shiftwidth'] = 2
+vim.opt['tabstop'] = 3
+vim.opt['shiftwidth'] = 3
 vim.treesitter.language.register('glsl', 'vert')
 
 -- Save undo history
@@ -230,6 +231,8 @@ local function exists(file)
   end
   return ok, err
 end
+
+vim.diagnostic.config { virtual_text = false }
 
 vim.o.termguicolors = true
 -- NeoVim custom keymaps

@@ -6,15 +6,15 @@
 --   end,
 -- })
 
-vim.api.nvim_create_autocmd('VimEnter', {
-  desc = 'Open the file tree if nothing is entered as a command',
-  group = vim.api.nvim_create_augroup('nvim-tree-open-no-args', { clear = true }),
-  callback = function()
-    if #vim.v.argv == 2 then
-      vim.cmd 'NvimTreeOpen'
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--   desc = 'Open the file tree if nothing is entered as a command',
+--   group = vim.api.nvim_create_augroup('nvim-tree-open-no-args', { clear = true }),
+--   callback = function()
+--     if #vim.v.argv == 2 then
+--       vim.cmd 'NvimTreeOpen'
+--     end
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd('BufWritePost', {
   desc = 'Automatically format buffer on write',
@@ -34,10 +34,10 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-vim.api.nvim_create_autocmd('DirChanged', {
-  callback = function()
-    local api = require 'nvim-tree.api'
-    local dir = vim.fn.expand '%:h'
-    api.tree.change_root(dir)
-  end,
-})
+-- vim.api.nvim_create_autocmd('DirChanged', {
+--   callback = function()
+--     local api = require 'nvim-tree.api'
+--     local dir = vim.fn.expand '%:h'
+--     api.tree.change_root(dir)
+--   end,
+-- })

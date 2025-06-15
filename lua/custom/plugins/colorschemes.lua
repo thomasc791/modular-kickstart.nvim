@@ -16,11 +16,7 @@ return {
     'catppuccin/nvim',
     name = 'catppuccin',
     opts = { telescope = { enable = true } },
-    config = function()
-      if Time > 7 and Time < 18 then
-        vim.cmd.colorscheme 'catppuccin-macchiato'
-      end
-    end,
+    config = function() end,
   },
 
   {
@@ -45,4 +41,20 @@ return {
   { 'sainnhe/gruvbox-material', name = 'gruvbox-material' },
 
   { 'navarasu/onedark.nvim', name = 'onedark' },
+
+  {
+    'maxmx03/fluoromachine.nvim',
+    name = 'fluoromachine',
+    config = function()
+      require('fluoromachine').setup {
+        glow = false,
+        theme = 'retrowave',
+        overrides = { ['@comment'] = { italic = true }, ['@function'] = { italic = false, bold = true } },
+      }
+
+      if Time > 7 and Time < 18 then
+        vim.cmd.colorscheme 'fluoromachine'
+      end
+    end,
+  },
 }
